@@ -1,0 +1,48 @@
+# tmp files
+\#*\#
+*~
+.#*
+
+# keep gitignore
+!.gitignore
+
+
+
+# ignore stuff ----------------------------------------------------------------
+# I really need to figure out how to only allow certain files
+
+# packages
+garbage.el
+straight/
+elpaca/
+
+# cache, lsp
+.cache/
+lsp-cache/
+.lsp-session-v1
+.dap-breakpoints
+intelephense/
+
+# tree-sitter
+tree-sit-parsers/
+tree-sit-repos/
+tree-sitter/
+
+# recents
+recentf
+eln-cache/
+auto-save-list/
+history
+multisession/
+
+eshell/
+url/
+transient/
+dirvish/
+parinfer-rust/
+
+org-persist/
+projects
+
+# macos
+.DS_Store

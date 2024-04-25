@@ -1,0 +1,82 @@
+#+TITLE: Potato Emacs
+
+# Xah Lee as always being a real one (https://emacs.stackexchange.com/a/26861)
+#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+[[screenshot.png]]
+
+- Package management using elpaca and use-package.
+- LSP support via eglot + lsp-booster + eglot-booster.
+- Meow for modal editing, optimized for Canary Ortho
+- Ripped the automatic indentation config from Doom Emacs right off, to match VSCode. First checks for .editorconfig, else try to guess with dtrt-indent, else fall back to the default.
+- Corfu and YASnippet for completion at point.
+- Both UI and UX enhancements with Vertico, Orderless, Marginalia, helpful and Doom themes.
+# - PDF support with pdf-tools.
+# - macOS specific: make Emacs see the programs in $PATH with exec-path.
+# (I don't really use macOS anymore, so I can't be bothered to check lol)
+- Sony PSX development (with Psy-Q) ""integration"".
+
+
+* Installing
+** Linux (openSUSE)
+We're going to be building Emacs from Git:
+#+BEGIN_SRC bash
+  # dependencies
+  # note: enable source repository
+  sudo zypper source-install --build-deps-only emacs
+  sudo zypper in tree-sitter tree-sitter-devel
+
+  # See https://git.savannah.gnu.org/cgit/emacs.git
+  # and https://savannah.gnu.org/projects/emacs for branches
+  git clone --depth 1 --branch emacs-29 https://git.savannah.gnu.org/git/emacs.git
+
+  # cd to the repo folder and run:
+  autogen.sh
+
+  # uninstall clang temporarily to avoid issues with configure
+  # since it only expects you to have either gcc or clang but not
+  # both lol
+  sudo zypper rm clang
+
+  # note: run ./configure --help to see available options
+  ./configure --with-native-compilation --with-rsvg --with-imagemagick \
+  --with-json --with-tree-sitter \
+  --with-pgtk --with-x-toolkit=gtk3 --with-x \
+  CFLAGS="-O2 -mtune=native -march=native -fPIC"
+  # -------^ that's the letter O, not zero.
+
+  # compile, specifying number of cores
+  make -j12
+
+  # install to /usr/local/bin/emacs
+  sudo make install
+
+  # clean repo
+  git clean -fdX
+#+END_SRC
+
+
+** macOS
+We're going to be using emacs-plus from https://github.com/d12frosted/homebrew-emacs-plus#emacs-29
+
+#+BEGIN_SRC bash
+  # Install jq (dependency of emacs-plus)
+  brew install jq
+
+  # Install tree-sitter so Emacs builds with tree-sitter support via native `treesit'
+  brew install tree-sitter
+  # Check for treesit support by evaluating the following: `(treesit-available-p)'
+
+  # Add repo
+  brew tap d12frosted/emacs-plus
+
+  # Install Emacs
+  brew install emacs-plus@29 --with-no-frame-refocus --with-imagemagick --with-native-comp
+
+  # Link application to the Applications folder
+  ln -s /opt/homebrew/opt/emacs-plus@29/Emacs.app /Applications
+
+  # Clone this repository
+  git clone git@gitlab.com:manueljlin/emacs-config.git ~/.emacs.d     # With SSH
+  git clone https://gitlab.com/manueljlin/emacs-config.git ~/.emacs.d # With HTTPS
+#+END_SRC
+
