@@ -81,6 +81,9 @@
    ;; theming
    "faces"                              ; set main faces (fonts)
    "themes"                             ; doom-themes + solaire-mode
+
+   ;; programming
+   "column-indicator"
    "prog-modes"
 
    ;; ui modifications

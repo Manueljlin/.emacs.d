@@ -23,10 +23,10 @@
    
    ;;; UI
    (setq frame-resize-pixelwise             t       ; Per pixel OS window resize
+         window-resize-pixelwise            t
          use-dialog-box                     nil     ; Always use Emacs dialogs
       
          ring-bell-function                 'ignore ; shutup.el
-         window-resize-pixelwise            nil     ; Avoid freezes with many Emacs windows
 
          column-number-indicator-zero-based nil     ; Make column number 1 index based
 
