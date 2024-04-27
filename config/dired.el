@@ -32,6 +32,8 @@
   :bind ; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
   (("C-c f" . dirvish-fd)
    :map dirvish-mode-map
+   ("{"         . dired-prev-dirline)
+   ("}"         . dired-next-dirline)
    ("M-<left>"  . dirvish-history-go-backward)
    ("M-<right>" . dirvish-history-go-forward)
    ("TAB"       . dirvish-subtree-toggle)))
