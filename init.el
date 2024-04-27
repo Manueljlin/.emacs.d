@@ -34,6 +34,7 @@
 (require 'json)
 (require 'treesit)
 
+;; (add-hook 'minibuffer-setup-hook (lambda () (setq line-spacing 2.0)))
 
 (message
  "early-init.el loaded in %s seconds, starting init.el..."

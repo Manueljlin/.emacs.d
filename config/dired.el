@@ -15,8 +15,14 @@
   :config
   (setq dirvish-mode-line-format
         '(:left (sort symlink) :right (omit yank index)))
-  (setq dirvis-attributes
-        '(file-time file-size collapse subtree-state vc-state git-msg))
+  (setq dirvish-subtree-always-show-state t)
+  (setq dirvish-attributes
+        '(;; file-time
+          ;; file-size                     ; show file size
+          ;; collapse                      ; show nested directories
+          subtree-state                 ; show > v icons in tree style dir toggle
+          vc-state                      ; show uncommited git changes in fringe
+          git-msg))                      ; show last commit name
   (setq delete-by-moving-to-trash t)
   (setq dired-listing-switches
         "-l --almost-all --human-readable --group-directories-first --no-group")

@@ -2,21 +2,22 @@
 ;;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+(add-hook
+ 'minibuffer-setup-hook
+ (lambda ()
+   (set-window-fringes (selected-window) 0 0)
+   (solaire-mode -1)
+   ;; (set-display-table-slot standard-display-table 0 ?\ )
+   (setq-local
+       default-text-properties '(line-spacing 0.35 line-height 1.25))))
+
 ;;; Mini-frame
 ;;; Move mini buffer up
 (use-package mini-frame
   :disabled t
+  ;; :ensure t
   :after doom-themes
-  :hook
-  ((minibuffer-setup
-    . (lambda ()
-       (solaire-mode -1)
-       ;; (setq-local
-       ;;  default-text-properties
-       ;;  '(line-spacing 0.5 line-height 1.5))
-       (setq line-spacing 5)
-       (set-display-table-slot standard-display-table 0 ?\ )))
-   (window-setup . (lambda () (mini-frame-mode))))
+  :hook (window-setup . (lambda () (mini-frame-mode)))
   
   :config
   (custom-set-variables
@@ -26,9 +27,9 @@
        (left . 0.5)
        (left-fringe . 0)
        (right-fringe . 0)
-       (child-frame-border-width . 0)   ; set to 0 to avoid flickers
-       (background-color . "#252635")))))
-       ;; (background-color . ,(doom-lighten (doom-color 'bg) 0.035))))))
+       (child-frame-border-width . 0)
+       (background-color . "#252635")
+       (background-color . ,(doom-lighten (doom-color 'bg) 0.035))))))
 
 
 ;;; Vertico

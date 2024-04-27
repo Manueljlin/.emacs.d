@@ -72,6 +72,15 @@
      '("n" . meow-left)
      '("e" . meow-next)
      '("i" . meow-right)
+     
+     '("r o" . windmove-up)
+     '("r n" . windmove-left)
+     '("r e" . windmove-down)
+     '("r i" . windmove-right)
+     '("R o" . windmove-swap-states-up)
+     '("R n" . windmove-swap-states-left)
+     '("R e" . windmove-swap-states-down)
+     '("R i" . windmove-swap-states-right)
 
      '("/" . consult-line)
      ;; '("<escape>" . 'keyboard-escape-quit)
@@ -91,25 +100,17 @@
      '("n" . "H-n")
      '("e" . "H-e")
      '("i" . "H-i")
+     '("r" . "H-r")
 
      
      ;;
      ;; Left side
 
-     ;; Window management
-     '("w o" . windmove-up)
-     '("w n" . windmove-left)
-     '("w e" . windmove-down)
-     '("w i" . windmove-right)
-     
-     
-     ;; '("w" . aw-flip-window)
-     ;; '("l" . ace-swap-window)             ; TODO: style the numbers in catppuccin
-     
      '("p" . project-find-file)
      '("b" . consult-buffer)
      
      '("t" . dirvish-side)
+     '("T" . dirvish-layout-toggle)
 
      '("d" . delete-window)
      '("k" . kill-this-buffer)
@@ -177,7 +178,14 @@
 
      ;; ~~ Home row ~~
      '("c" . meow-change)
-     '("r" . meow-replace)
+     '("r o" . windmove-up)
+     '("r n" . windmove-left)
+     '("r e" . windmove-down)
+     '("r i" . windmove-right)
+     '("R o" . windmove-swap-states-up)
+     '("R n" . windmove-swap-states-left)
+     '("R e" . windmove-swap-states-down)
+     '("R i" . windmove-swap-states-right)
      '("s" . meow-insert)
      '("S" . meow-open-above)
      '("t" . meow-till)
@@ -200,7 +208,7 @@
 
      ;; ~~ Bottom row ~~
      '("q" . meow-quit)
-     '("j" . meow-join)
+     '("j" . meow-replace)
      '("v" . meow-search)
      '("d" . meow-kill)
      '("k" . meow-block)
@@ -218,6 +226,7 @@
 
      ;; ~~ Other stuff ~~
      '("-" . negative-argument)
+     '("!" . meow-join)
      
      '("{" . backward-paragraph)
      '("}" . forward-paragraph)
@@ -245,7 +254,7 @@
      '("<return>" . ignore)
      '("<backspace>" . ignore)))
   
-  ;; :hook (emacs-startup . mn/meow-setup)
-  :hook (elpaca-after-init . mn/meow-setup))
-  ;; :config (mn/meow-setup)
+  ;; :hook (emacs-startup . mn/meow-setup))
+  ;; :hook (elpaca-after-init . mn/meow-setup))
+  :config (mn/meow-setup))
   
