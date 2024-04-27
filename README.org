@@ -3,6 +3,7 @@
 # Xah Lee as always being a real one (https://emacs.stackexchange.com/a/26861)
 #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
 [[screenshot.png]]
+[[screenshot2.png]]
 
 - Package management using elpaca and use-package.
 - LSP support via eglot + lsp-booster + eglot-booster.
