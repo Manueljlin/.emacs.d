@@ -74,6 +74,7 @@
 
    ;; ux improvements
    "saner-emacs"                        ; misc config for built in modes
+   "corfu"                              ; capf but sane
    "vertico"                            ; vertico marginalia orderless consult
    "rainbow-delimiters"                 ; color matching braces () {} []
    "helpful"                            ; add improvements to help commands
@@ -90,10 +91,10 @@
    ;; ui modifications
    "dired"
    "modeline"
-   "git-gutter"))
+   "git-gutter"
  
    ;; "magit"
-   ;; "eat"
+   "eat"))
    
 
 

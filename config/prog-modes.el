@@ -4,13 +4,28 @@
 
 
 ;;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-;;; Treesit-auto
+;;; Treesit
+
+(use-package treesit
+  :ensure nil
+  :defer t
+  :custom
+  (treesit-font-lock-level 4))
 
 (use-package treesit-auto
   :ensure t
   :custom
-  (treesit-auto-install 'prompt)
+  (treesit-auto-install t)
   :config
+  (setq mn/php-tsauto-config            ; `treesit-install-language-grammar`
+        (make-treesit-auto-recipe       ; if it doesn't want to behave
+         :lang 'php
+         :ts-mode 'php-ts-mode
+         :url "https://github.com/tree-sitter/tree-sitter-php"
+         :revision "master"
+         :source-dir "php/src"
+         :ext "\\.php\\'"))
+  (add-to-list 'treesit-auto-recipe-list mn/php-tsauto-config)
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
@@ -19,9 +34,36 @@
 ;;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;;; LSP Config
 
+(use-package eldoc-box
+  :ensure t
+  :hook ((eglot-managed-mode
+          prog-mode)
+         . (lambda () (eldoc-box-hover-at-point-mode t)))
+  :config
+  (set-face-attribute 'eldoc-box-border nil
+                      :background (doom-lighten (doom-color 'bg) 0.15)))
+  ;; :custom-face
+  ;; (eldoc-box-border
+  ;;  ((t (:border nil)))))
+
 (use-package eglot
-  :defer 2
-  :ensure nil)
+  :defer t
+  :ensure nil
+  :config
+  (add-to-list
+   'eglot-server-programs
+   '(;; `php8` `php8-phar` `php8-zlib`
+     (php-ts-mode php-mode phps-mode) . ("phpactor" "language-server")))
+  :hook ((;; JS/TS
+          typescript-ts-mode tsx-ts-mode
+          js-ts-mode         jsx-ts-mode
+          ;; System langs
+          c-ts-mode
+          c++-ts-mode
+          rust-ts-mode
+          ;; JVM
+          java-ts-mode)
+         . eglot-ensure))
   ;; :custom (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider)))
 
 
@@ -33,6 +75,18 @@
   :ensure (:type git
            :host github
            :repo "jdtsmith/eglot-booster"))
+
+
+
+;;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;;; Trim trailing whitespace
+
+(use-package ws-butler
+  :defer t
+  :hook (prog-mode . ws-butler-mode)
+  :ensure (:type git
+           :host github
+           :repo "hlissner/ws-butler"))
 
 
 
@@ -73,6 +127,16 @@
 ;;; TODO: Svelte
 
 
+;;; PHP
+(use-package php-ts-mode
+  :mode "\\.php\\'"
+  :ensure (:type git
+           :host github
+           :repo "emacs-php/php-ts-mode"
+           :files ("php-face.el" "php-ts-mode.el")))
+                 
+
+
 
 ;;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;;; Markdown
@@ -90,7 +154,7 @@
 ;;; C
 (use-package c-ts-mode
   :ensure nil
-  :mode ("\\.c\\'" "\\.h\\'")
+  :mode ("\\.c\\'" "\\.C\\'" "\\.h\\'" "\\.H\\'")
   :hook (c-ts-mode . (lambda () (mn/setup-column-indicator-by-arg 80)))
   :custom
   ;; https://emacs.stackexchange.com/a/78291

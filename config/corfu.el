@@ -7,13 +7,14 @@
 (use-package corfu
   :after orderless
   
-  :hook (;(prog-mode   . corfu-mode)
+  :hook ((prog-mode   . corfu-mode)
          (elisp-mode  . corfu-mode)
          (shell-mode  . corfu-mode)
          (eshell-mode . corfu-mode)
          (corfu-mode  . corfu-popupinfo-mode))
   
   :custom
+  (tab-always-indent 'complete)         ; Map TAB to indentation+completion
   (corfu-auto t)                        ; Enable auto completion
   (corfu-separator ?\s)                 ; Orderless field separator
   (corfu-auto-delay 0.2)                ; Auto completion list delay
@@ -26,7 +27,7 @@
            :host github
            :repo "minad/corfu"
            :branch "main"
-           :files ("corfu.el",
+           :files ("corfu.el"
                    "extensions/corfu-popupinfo.el")))
 
 
