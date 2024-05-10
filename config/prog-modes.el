@@ -6,6 +6,8 @@
 ;;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;;; Treesit
 
+(require 'treesit)
+
 (use-package treesit
   :ensure nil
   :defer t
@@ -34,6 +36,8 @@
 ;;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;;; LSP Config
 
+(require 'json)
+
 (use-package eldoc-box
   :ensure t
   :hook ((eglot-managed-mode
@@ -47,16 +51,17 @@
   ;;  ((t (:border nil)))))
 
 (use-package eglot
-  :defer t
   :ensure nil
   :config
   (add-to-list
    'eglot-server-programs
    '(;; `php8` `php8-phar` `php8-zlib`
-     (php-ts-mode php-mode phps-mode) . ("phpactor" "language-server")))
+     (php-ts-mode php-mode phps-mode :language-id "php") . ("phpactor" "language-server")))
   :hook ((;; JS/TS
           typescript-ts-mode tsx-ts-mode
           js-ts-mode         jsx-ts-mode
+          ;; PHP
+          php-ts-mode
           ;; System langs
           c-ts-mode
           c++-ts-mode
@@ -82,7 +87,6 @@
 ;;; Trim trailing whitespace
 
 (use-package ws-butler
-  :defer t
   :hook (prog-mode . ws-butler-mode)
   :ensure (:type git
            :host github
@@ -130,6 +134,8 @@
 ;;; PHP
 (use-package php-ts-mode
   :mode "\\.php\\'"
+  :config
+  (setq-local eldoc-documentation-strategy 'eldoc-documentation-compose)
   :ensure (:type git
            :host github
            :repo "emacs-php/php-ts-mode"
@@ -141,6 +147,7 @@
 ;;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;;; Markdown
 ;;; (not really programming but eh)
+
 (use-package markdown-mode
   :ensure t
   :mode "\\.md\\'")
@@ -262,6 +269,16 @@
 
 ;;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;;; PSX Devel
+
+;;;
+;;; MIPS Assembly
+(use-package asm-mode
+  :mode "\\.mips$")
+  ;; :config
+  ;; (setq comment-start "# ")
+  ;; (setq asm-comment-char ?#)
+  ;; (modify-syntax-entry ?# "< b" asm-mode-syntax-table)
+  ;; (modify-syntax-entry ?\n "> b" asm-mode-syntax-table))
 
 ;; CMake? Haha, that's funny. Emacs.
 ;; This is based on the scripts by `prochazkaml' in PSXDEV.net. Thank you!

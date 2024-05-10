@@ -11,7 +11,12 @@
   (dirvish-quick-access-entries
    '(("g" "~/Git" "Git repos"
       "h" "~"     "Home")))
-  
+
+  :hook
+  (dirvish-setup
+   . (lambda ()
+       (define-fringe-bitmap 'dirvish-vc-gutter [192] nil nil '(center repeated))))
+
   :config
   (setq dirvish-mode-line-format
         '(:left (sort symlink) :right (omit yank index)))
@@ -28,7 +33,7 @@
         "-l --almost-all --human-readable --group-directories-first --no-group")
   (setq dired-mouse-drag-files t)
   (setq mouse-drag-and-drop-region-cross-program t)
-  
+
   :bind ; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
   (("C-c f" . dirvish-fd)
    :map dirvish-mode-map
@@ -50,7 +55,6 @@
 ;; Additional syntax highlighting for dired
 (use-package diredfl
   :ensure t
-  :defer t
   :hook
   ((dired-mode . diredfl-mode)
    ;; highlight parent and directory preview as well

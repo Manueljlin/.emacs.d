@@ -106,7 +106,7 @@
      ;;
      ;; Left side
 
-     '("p" . project-find-file)
+     '("p" . project-find-dir)
      '("b" . consult-buffer)
      
      '("t" . dirvish-side)
@@ -254,7 +254,6 @@
      '("<return>" . ignore)
      '("<backspace>" . ignore)))
   
-  ;; :hook (emacs-startup . mn/meow-setup))
+  :hook (emacs-startup . mn/meow-setup))
   ;; :hook (elpaca-after-init . mn/meow-setup))
-  :config (mn/meow-setup))
-  
+  ;; :config (mn/meow-setup))

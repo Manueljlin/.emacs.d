@@ -34,6 +34,7 @@
 ;;; Automatically set indentation settings to the current one in file as
 ;;; fallback to missing editorconfig
 (use-package dtrt-indent
+  :defer t
   :ensure t)
 
 (add-hook

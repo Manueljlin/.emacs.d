@@ -31,19 +31,10 @@
 ;;;  * C-h v    ----  Describe variable
 
 
-(require 'json)
-(require 'treesit)
-
-;; (add-hook 'minibuffer-setup-hook (lambda () (setq line-spacing 2.0)))
 
 (message
- "early-init.el loaded in %s seconds, starting init.el..."
- (format "%.2f seconds"
-         (float-time
-          (time-subtract
-           (current-time)
-
-           before-init-time))))
+ "early-init.el loaded in %f seconds, starting init.el..."
+ (float-time (time-subtract (current-time) before-init-time)))
 
 
 ;;; Imports
@@ -54,9 +45,10 @@
 
 (mapc
  (lambda (config-file-name)
-   (with-timer
-    config-file-name
-    (load (concat (locate-user-emacs-file "config/") config-file-name ".el"))))
+   (let ((file-path (concat (locate-user-emacs-file "config/") config-file-name ".el")))
+     (when (file-readable-p file-path)
+       (with-timer config-file-name (load file-path)))))
+
  '(;; essentials
    "package-management"                 ; elpaca, use-package
    "optimization"                       ; gcmh
@@ -69,8 +61,7 @@
 
    ;; file editing
    "indentation"                        ; editorconfig & dtrt-indent
-   "line-numbers"                       ; hooks&config for display-line-numbers-mode
-   "line-highlight"                     ; hooks&config for hl-line-mode
+   "lines"                              ; line numbers & highlight
 
    ;; ux improvements
    "saner-emacs"                        ; misc config for built in modes
@@ -78,14 +69,12 @@
    "vertico"                            ; vertico marginalia orderless consult
    "rainbow-delimiters"                 ; color matching braces () {} []
    "helpful"                            ; add improvements to help commands
-   "window-mgmt"                        ; ace-window TODO: consider replacing with windmove
    
    ;; theming
    "faces"                              ; set main faces (fonts)
    "themes"                             ; doom-themes + solaire-mode
 
    ;; programming
-   "column-indicator"
    "prog-modes"
 
    ;; ui modifications
@@ -94,7 +83,10 @@
    "git-gutter"
  
    ;; "magit"
-   "eat"))
+   "eat"
+
+   ;; my future replacement
+   "llm"))
    
 
 

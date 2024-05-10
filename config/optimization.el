@@ -53,12 +53,14 @@
 ;;; Defer the garbage collection to idle times
 
 (use-package gcmh
-  :defer 20
+  :ensure t
+  :hook (emacs-startup)
+
   
   :custom
   (gcmh-idle-delay             'auto)   ; default is 15s
   (gchm-auto-idle-delay-factor 20)
   (gcmh-high-cons-threshold (* 16 1024 1024))
-  
+
   :config
   (gcmh-mode 1))

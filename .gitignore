@@ -7,6 +7,9 @@
 !.gitignore
 
 
+# secrets
+groq-api-key
+
 
 # ignore stuff ----------------------------------------------------------------
 # I really need to figure out how to only allow certain files
@@ -15,6 +18,8 @@
 garbage.el
 straight/
 elpaca/
+elpa/
+ellama-sessions/
 
 # cache, lsp
 .cache/

@@ -7,10 +7,10 @@
 ;;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ;;; Vanilla modeline
 
-(setq mode-line-percent-position nil)   ; nuke `Top'|`Bot'|`50%'
+(setq mn/modeline-format "%l:%C")
+(setq mode-line-percent-position nil ; nuke `Top'|`Bot'|`50%'
+      mode-line-position-column-line-format '(mn/modeline-format)) ; Make column number 1 index based
 (column-number-mode t)
-
-
 
 
 
@@ -49,14 +49,7 @@
   ;; workaround for line wrap in -nw
   (when (not (display-graphic-p))
     (setq mini-echo-right-padding 1))
-
-  ;; Add +1 to make the col start at 1 instead of 0 like vscode etc
-  ;; (mini-echo-define-segment "mn-buffer-position"
-  ;;   "Return the cursor position of current buffer."
-  ;;   :fetch
-  ;;   (let* ((line (format-mode-line "%l"))
-  ;;          (col (1+ (current-column))))
-  ;;     (format "%d:%d" line col)))
+  (setq mini-echo-position-format mn/modeline-format)
 
   ;; (setq mini-echo-default-segments
   ;;       '(:long ("major-mode" "buffer-name" "mn-buffer-position" "eglot" "vcs")

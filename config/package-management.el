@@ -50,12 +50,10 @@
 (elpaca elpaca-use-package
   (elpaca-use-package-mode))
 
-(elpaca-wait)
-
 
 ;; Generate a report of the packages:
 ;; Package name  ----  Status (Declared | Initialized | Configured)  ----  Time
-(setq use-package-compute-statistics t)
+;; (setq use-package-compute-statistics t)
 ;; Open report with `use-package-report'
 
 

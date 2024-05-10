@@ -22,7 +22,7 @@
  ;;
  ;; Ignore random CLI arguments
  command-line-x-option-alist nil
- 
+
  ;;
  ;; GC config
  gc-cons-threshold       most-positive-fixnum ; Stop GC at startup. MUST be reset later to avoid freezes. gcmh will manage this
@@ -35,12 +35,12 @@
  auto-save-file-name-transforms `((".*"   ,temporary-file-directory t)) ; Save autosaves to /tmp/
 
  delete-old-versions t                  ; Automatically delete old backup files
- 
+
  ;;
  ;; Avoid auto resize of window while loading
  ;; (*Significant* speedup, about 100ms)
  frame-inhibit-implied-resize t
- 
+
  ;; Optimizations to jit lock
  ;; From https://tychoish.com/post/towards-faster-emacs-start-times/
  jit-lock-stealth-time nil
@@ -64,7 +64,7 @@
  ;; Make the initial mode for *scratch* fundamental-mode instead of
  ;; lisp-interaction-mode, so it starts faster
  initial-major-mode 'fundamental-mode
- 
+
  ;;
  ;; Change default scratch message
  initial-scratch-message "
@@ -85,7 +85,7 @@
       _    _
      _
    __
-  
+
 "
 
  ;;; Don't load `package.el' as we'll be using `elpaca'
@@ -97,10 +97,12 @@
       file-name-handler-alist nil)
 
 ;;; Make titlebar color on macOS match the theme
-(if (when (featurep 'ns)
-      (push '(ns-transparent-titlebar . t) default-frame-alist)
-      (push '(ns-appearance . dark) default-frame-alist))
-    (push '(ns-appearance . nil) default-frame-alist))
+(if (not (featurep 'ns))
+    (push '(ns-appearance . nil) default-frame-alist)
+  (push '(ns-transparent-titlebar . t) default-frame-alist)
+  (push '(ns-appearance . dark) default-frame-alist))
+
+
 
 ;;; If Emacs build has native comp enabled...
 (when (featurep 'native-compile)
